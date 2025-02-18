@@ -28,7 +28,7 @@ namespace datepicker.Controllers
                 _context.SaveChanges(); // Save to DB
 
 
-                TempData["Success"] = "Data Added Succesful";
+                TempData["Success"] = "Data Added Succesfully";
                 return  RedirectToAction("Create");
             }
                 return View(model);
