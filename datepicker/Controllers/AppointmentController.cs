@@ -19,8 +19,6 @@ namespace datepicker.Controllers
 
             return View();
         }
-
-
         [HttpPost]
         public IActionResult Create( Appointment model)
         {
