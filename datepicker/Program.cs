@@ -18,15 +18,13 @@ builder.Configuration.GetConnectionString("DefaultConnection")
 
 ));
 
-// Identity configuration
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
 
-//add jwt bearer token
-// JWT Authentication configuration
-var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 
+// Add services to the container
+builder.Services.AddControllersWithViews();
+
+// Configure JWT Authentication
+var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -41,10 +39,11 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
         ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true
+        ValidateAudience = false
     };
 });
+
+builder.Services.AddAuthorization();
 
 
 var app = builder.Build();
